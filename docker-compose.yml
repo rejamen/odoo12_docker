@@ -1,0 +1,29 @@
+version: '2'
+services:
+  odoo:
+    build: .
+    container_name: odoo
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./extra-addons:/mnt/extra-addons
+      - odoo-web-data:/var/lib/odoo
+      - ./scripts:/home
+
+  db:
+    image: postgres:10.1-alpine
+    container_name: db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    # environment:
+    #   - POSTGRES_DB=postgres
+    #   - POSTGRES_PASSWORD=odoo
+    #   - POSTGRES_USER=odoo
+volumes:
+  odoo-web-data:
+  postgres_data:
+
