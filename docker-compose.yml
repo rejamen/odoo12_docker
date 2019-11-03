@@ -2,7 +2,7 @@ version: '2'
 services:
   odoo:
     build: .
-    container_name: odoo
+    container_name: web
     depends_on:
       - db
     ports:
