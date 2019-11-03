@@ -58,6 +58,7 @@ RUN set -x;\
     && rm -rf "$GNUPGHOME" \
     && apt-get update \
     && apt-get install -y nodejs \
+    && apt-get install zsh \
     && npm install -g rtlcss \
     && rm -rf /var/lib/apt/lists/*
 
@@ -77,6 +78,10 @@ RUN set -x; \
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
+
+# Copy requirements file to install
+COPY ./requirements.txt /tmp
+RUN pip3 install -r /tmp/requirements.txt
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN mkdir -p /mnt/extra-addons \
